@@ -12,4 +12,11 @@ const sessionConfig = {
     }
 }
 
-module.exports = session(sessionConfig);
+const sessionProvider = session(sessionConfig);
+
+const shareSessionWithViews = (req, res, next) => {
+    res.locals.session = req.session;
+    next();
+}
+
+module.exports = [sessionProvider, shareSessionWithViews];

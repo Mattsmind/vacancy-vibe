@@ -8,7 +8,7 @@ const app = require('./app');
 const { getTimestamp } = require('./utils/logStyles');
 const PORT = process.env.PORT || 3000;
 
-mongoose.connect(process.env.DATABASE_URL || 'mongodb://127.0.0.1:27017/camp-reviews');
+mongoose.connect(process.env.DATABASE_URL || 'mongodb://127.0.0.1:27017/vacancy-vibe');
 
 mongoose.connection.on('error', (err) => {
     const timestamp = getTimestamp();
