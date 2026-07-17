@@ -10,7 +10,7 @@ const globalErrorHandler = require('./middleware/errorMiddleware');
 const AppError = require('./utils/AppError')
 const sessionMiddleware = require('./middleware/sessions');
 
-
+const authenticationRoutes = require('./routes/authentication');
 const motelRoutes = require('./routes/motels');
 const reviewRoutes = require('./routes/reviews');
 
@@ -30,6 +30,7 @@ app.use(require('./middleware/flashMessages'));
 app.get( '/favicon.ico', (req, res) => res.status(204).end() );
 app.get('/', (req, res) => res.render('home', { pageTitle: 'Home'}) );
 
+app.use('/auth', authenticationRoutes);
 app.use('/motels', motelRoutes);
 app.use('/motels/:id/reviews', reviewRoutes);
 

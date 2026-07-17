@@ -1,1 +1,103 @@
-<% layout('../layouts/boilerplate') %>
+<% layout('layouts/boilerplate') %>
+
+    <div class="container vh-100 d-flex align-items-center justify-content-center">
+        <div class="col-12 col-sm-8 col-md-5 col-lg-4">
+
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+
+                    <h2 class="text-center mb-4">Create Account</h2>
+
+                    <form class="needs-validation" action="/register" method="POST" novalidate>
+
+                        <div class="mb-3">
+                            <label for="username" class="form-label">
+                                Username
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="username"
+                                name="user[username]"
+                                minlength="3"
+                                maxlength="30"
+                                required>
+
+                            <div class="invalid-feedback">
+                                Username must be between 3 and 30 characters.
+                            </div>
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">
+                                Email
+                            </label>
+
+                            <input
+                                type="email"
+                                class="form-control"
+                                id="email"
+                                name="user[email]"
+                                required>
+
+                            <div class="invalid-feedback">
+                                Please enter a valid email address.
+                            </div>
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">
+                                Password
+                            </label>
+
+                            <input
+                                type="password"
+                                class="form-control"
+                                id="password"
+                                name="user[password]"
+                                minlength="8"
+                                pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}"
+                                required>
+
+                            <div class="invalid-feedback">
+                                Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character.
+                            </div>
+                        </div>
+
+
+                        <div class="mb-4">
+                            <label for="confirmPassword" class="form-label">
+                                Confirm Password
+                            </label>
+
+                            <input
+                                type="password"
+                                class="form-control"
+                                id="confirmPassword"
+                                name="user[confirmPassword]"
+                                required>
+
+                            <div class="invalid-feedback">
+                                Please confirm your password.
+                            </div>
+                        </div>
+
+
+                        <div class="d-grid">
+                            <button class="btn btn-success" type="submit">
+                                Register
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <% block('scripts').append('<script script src="/js/formValidation.js"></script>') %>
+    
