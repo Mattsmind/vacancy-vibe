@@ -9,6 +9,7 @@ const { requestLogger, errorLogger } = require('./middleware/eventLogger');
 const globalErrorHandler = require('./middleware/errorMiddleware');
 const AppError = require('./utils/AppError')
 const sessionMiddleware = require('./middleware/sessions');
+const authenticationMiddleware = require('./middleware/authenticationMiddleware');
 
 const authenticationRoutes = require('./routes/authentication');
 const motelRoutes = require('./routes/motels');
@@ -24,6 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride('_method'));
 app.use(sessionMiddleware);
+app.use(authenticationMiddleware);
 app.use(flash());
 app.use(require('./middleware/flashMessages'));
 

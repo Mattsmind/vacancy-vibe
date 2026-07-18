@@ -19,11 +19,13 @@
 
                 <!-- Right aligined login form -->
                 <div class="d-flex align-items-center gap-2 ms-auto mt-2 mt-lg-0">
-                <% if (typeof session !== 'undefined' && session.user) { %>
+                <% if (currentUser) { %>
                     <span class="navbar-text text-white me-2">
-                        Logged in as: <strong><%= session.user.username %></strong>
+                        Logged in as: <strong><%= currentUser.username %></strong>
                     </span>
-                    <a href="/auth/logout" class="btn btn-outline-danger btn-sm">Logout</a>
+                    <form action="/auth/logout" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-outline-danger btn-sm">Logout</button>
+                    </form>
                 <% } else { %>
                     <a href="/auth/login" class="btn btn-link text-light text-decoration-none btn-sm">Login</a>
                     <a href="/auth/register" class="btn btn-primary btn-sm">Sign Up</a>

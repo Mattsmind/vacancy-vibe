@@ -16,11 +16,15 @@ module.exports.renderNewForm = (req, res) => {
 };
 
 module.exports.createMotel = async (req, res, next) => {
-    const newCamp =  new Motel(req.body.motel);
-    const createCamp = await newCamp.save();
+    const newMotel =  new Motel(req.body.motel);
+    const createMotel = await newMotel.save();
+
+    if (!createMotel) {
+        return next(new AppError('Error cretating new motel.', 500, '/motels/new'));
+    }
 
     req.flash('success', 'Successfully created new Vacancy Vibe!');
-    res.redirect(`/motels/${newCamp._id}`);
+    res.redirect(`/motels/${newMotel._id}`);
 };
 
 module.exports.showMotel = async (req, res, next) => {

@@ -9,11 +9,11 @@ const userValidation = require('../models/userValidation');
 
 router.route('/register')
     .get(auth.renderRegister)
-    .post(validateForm(userValidation), auth.register);
+    .post(validateForm(userValidation, 'user'), auth.register);
 
 router.route('/login')
     .get(auth.renderLogin)
-    .post(validateForm(loginValidation), auth.login);
+    .post(validateForm(loginValidation, 'user'), auth.login);
 
 router.post('/logout', auth.logout);
 

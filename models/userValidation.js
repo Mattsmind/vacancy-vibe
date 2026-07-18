@@ -27,6 +27,14 @@ const userValidation = Joi.object({
                 'Password cannot begin or end with spaces.',
             'string.pattern.base':
                 'Password must contain an uppercase letter, lowercase letter, number and at least one non-alphanumeric character.'
+        }),
+
+    confirmPassword: Joi.string()
+        .valid(Joi.ref('password'))
+        .required()
+        .messages({
+            'any.only': 'Passwords do not match.',
+            'any.required': 'Please confirm your password.'
         })
 });
 
