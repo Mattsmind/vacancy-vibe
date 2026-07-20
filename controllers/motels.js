@@ -16,7 +16,15 @@ module.exports.renderNewForm = (req, res) => {
 };
 
 module.exports.createMotel = async (req, res, next) => {
-    const newMotel =  new Motel(req.body.motel);
+    const motel = req.body.motel;
+    const newMotel = new Motel({
+        title: motel.title,
+        image: motel.image,
+        price: motel.price,
+        description: motel.description,
+        location: motel.location,
+        author: req.user._id
+    })
     const createMotel = await newMotel.save();
 
     if (!createMotel) {
@@ -29,7 +37,12 @@ module.exports.createMotel = async (req, res, next) => {
 
 module.exports.showMotel = async (req, res, next) => {
     const { id } = req.params;
-    const motel = await Motel.findById(id).populate('reviews');
+    const motel = await Motel.findById(id).populate({ 
+        path:'reviews',
+        populate: {
+            path: 'author'
+        }
+    });
 
     if (!motel) {
         return next(new AppError('That motel could not be found', 404, '/motels'));

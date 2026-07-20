@@ -22,6 +22,8 @@ const userSchema = new Schema({
         required: true
     },
 
+}, {
+    timestamps: true
 });
 
 userSchema.methods.verifyPassword = async function (userInputPassword) {

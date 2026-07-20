@@ -10,10 +10,15 @@ module.exports.createReview = async (req, res, next) => {
         return next(new AppError('Motel not found', 404, '/motels'));
     }
 
-    const review = new Review(req.body.review);
-    await review.save();
+    const review = req.body.review;
+    const newReview = new Review({
+        rating: review.rating,
+        body: review.body,
+        author: req.user._id
+    });
+    await newReview.save();
 
-    motel.reviews.push(review._id);
+    motel.reviews.push(newReview._id);
     await motel.save();
 
     req.flash('success', 'Review created successfully!');

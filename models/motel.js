@@ -28,12 +28,19 @@ const motelSchema = new Schema({
         type: String,
         required: true
     },
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
     reviews: [
         {
             type: Schema.Types.ObjectId,
             ref: 'Review'
         }
     ]
+}, {
+    timestamps: true
 });
 
 motelSchema.post('findOneAndDelete', async function (motel) {
