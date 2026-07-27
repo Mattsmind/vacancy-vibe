@@ -2,6 +2,10 @@ const User = require('../models/user');
 const AppError = require('../utils/AppError');
 
 module.exports.renderRegister = (req, res) => {
+    if (req.query.returnTo) {
+        req.session.returnTo = req.query.returnTo;
+    }
+
     res.render('auth/register', { pageTitle: 'Register' });
 };
 
@@ -21,12 +25,18 @@ module.exports.register = async (req, res, next) => {
     }
 
     req.session.userId = createdUser._id;
+    const redirectUrl = req.session.returnTo || '/motels';
+    delete req.session.returnTo;
 
     req.flash('success', `Welcome to Vacancy Vibe, ${createdUser.username}!`);
-    res.redirect('/motels');
+    res.redirect(redirectUrl);
 };
 
 module.exports.renderLogin = (req, res) => {
+    if (req.query.returnTo) {
+        req.session.returnTo = req.query.returnTo;
+    }
+
     res.render('auth/login', { pageTitle: 'Login' });
 };
 
@@ -47,9 +57,11 @@ module.exports.login = async (req, res, next) => {
     }
 
     req.session.userId = foundUser._id;
+    const redirectUrl = req.session.returnTo || '/motels';
+    delete req.session.returnTo;
 
     req.flash('success', `Welcome back, ${foundUser.username}!`);
-    res.redirect('/motels');
+    res.redirect(redirectUrl);
 };
 
 module.exports.logout = (req, res, next) => {

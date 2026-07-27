@@ -19,12 +19,14 @@
                 <span><strong>Price:</strong> $<%= motel.price %>/night</span>
             </div>
 
+            <% if (currentUser && motel.author.equals(currentUser._id)) { %>
             <div class="mt-auto">
                 <a class="btn btn-success" href="/motels/<%= motel._id %>/edit">Edit</a>
                 <form class="d-inline" method="post" action="/motels/<%= motel._id %>?_method=DELETE">
                     <button class="btn btn-danger">Delete</button>
                 </form>
             </div>
+            <% } %>
 
         </div>
     </div>
@@ -40,11 +42,13 @@
                 <% for(let i = motel.reviews.length - 1; i >= 0; i--) { %>
                     <% let review = motel.reviews[i]; %>
                 <div class="d-flex align-items-start p-3 mb-3 bg-body-tertiary rounded shadow-sm text-body position-relative">
-                        
+                    
+                    <% if (currentUser && review.author.equals(currentUser._id)) { %>
                     <form action="/motels/<%= motel._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST" class="position-absolute top-0 end-0 p-2">
                         <button type="submit" class="btn-close small display-hover-red" aria-label="Delete Review" style="font-size: 0.75rem; transition: background-color 0.2s;"></button>
                     </form>
-                        
+                    <% } %>
+                    
                     <div class="d-flex align-items-center justify-content-center bg-warning text-dark font-monospace rounded fw-bold shadow-sm me-3 text-center" style="width: 50px; height: 50px; min-width: 50px; font-size: 1.25rem; line-height: 1;">
                         <%= review.rating %>
                     </div>
@@ -69,6 +73,8 @@
 
     <div class="col-lg-4 col-12 align-self-start sticky-top pt-2" style="top: 90px; z-index: 1020;">
         <div class="p-4 bg-body-tertiary rounded shadow-sm">
+            <% if (currentUser) { %>
+            
             <h3 class="h4 mb-4 fw-bold">Leave a Review</h3>
             
             <form action="/motels/<%= motel._id %>/reviews" method="POST" novalidate class="needs-validation">
@@ -91,6 +97,24 @@
                 
                 <button class="btn btn-success w-100">Submit Review</button>
             </form>
+
+            <% } else { %>
+
+            <h3 class="h4 fw-bold mb-3">Want to share your experience?</h3>
+
+            <p class="text-muted">
+                Join the Vacancy Vibe community to leave reviews and share your stays with other travelers.
+            </p>
+
+            <a href="/auth/login?returnTo=/motels/<%= motel._id %>" class="btn btn-success w-100 mb-2">
+                Login
+            </a>
+
+            <a href="/auth/register?returnTo=/motels/<%= motel._id %>" class="btn btn-outline-success w-100">
+                Create Account
+            </a>
+
+            <% } %> 
         </div>
     </div>
 

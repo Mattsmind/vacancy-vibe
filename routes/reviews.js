@@ -3,6 +3,9 @@ const router = express.Router({ mergeParams: true });
 
 const validateForm = require('../middleware/validateForm');
 const requireAuth = require('../middleware/requireAuth');
+const isAuthor = require('../middleware/isAuthor');
+
+const Review = require('../models/review');
 const { reviewSchema } = require('../models/reviewsValidation');
 const { objectIdSchema } = require('../models/idValidation');
 
@@ -12,6 +15,6 @@ router.route('/')
     .post(validateForm(reviewSchema), requireAuth, reviews.createReview);
 
 router.route('/:reviewId')
-    .delete(validateForm(objectIdSchema, 'params'), requireAuth, reviews.deleteReview)
+    .delete(validateForm(objectIdSchema, 'params'), requireAuth, isAuthor(Review), reviews.deleteReview)
 
 module.exports = router;
