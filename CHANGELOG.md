@@ -7,6 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.2.0] - 2026-07-27
+
+### Added
+* **User Authentication System:** Introduced complete user account workflows including registration, login, logout, and session-based identity management.
+* **Secure Password Handling:** Integrated Argon2 password hashing for protected user credentials and improved authentication security.
+* **Authorization Middleware Layer:** Added dedicated authorization controls through `requireAuth.js` and `isAuthor.js` middleware, enforcing authenticated access and ownership-based permissions.
+* **Resource Ownership Model:** Expanded motel documents with author relationships, allowing users to manage only resources they own.
+* **User Seed Integration:** Extended the database seed engine with generated demo users and relational mappings between users, motel listings, and reviews.
+* **Demo Environment Improvements:** Updated the application landing page with project information, feature status, fictional data disclosure, and demo account access instructions.
+
+### Changed
+* **Authentication Architecture:** Expanded the middleware pipeline with session handling, authentication state tracking, and flash message integration.
+* **Database Relationships:** Updated motel schema structure to support author references and ownership validation workflows.
+* **Application Routing:** Added dedicated authentication routes and protected resource workflows.
+* **Documentation Overhaul:** Updated README documentation to reflect current architecture, authentication features, development workflow, and v2.2.0 release state.
+
+### Security
+* Added route-level authentication enforcement to prevent unauthorized access to protected workflows.
+* Added ownership verification to prevent users from modifying or deleting resources belonging to other users.
+* Improved credential security through Argon2-based password hashing.
+
+### Fixed
+* Resolved authorization workflow gaps where resource ownership was not enforced.
+* Improved application behavior for unauthenticated users attempting protected actions.
+* Corrected seed generation workflow to support user relationships and author-linked resources.
+
+---
+
 ## [2.1.0] - 2026-06-25
 
 ### Added
@@ -27,4 +55,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+[2.2.0]: https://github.com/Mattsmind/camp_review/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/Mattsmind/camp_review/compare/v2.0.0...v2.1.0

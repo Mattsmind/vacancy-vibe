@@ -1,6 +1,6 @@
 {
   "name": "vacancy-vibe",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "A vintage roadside motel review directory application.",
   "keywords": [
     "express",
@@ -16,8 +16,8 @@
     "retro-travel",
     "mvc-architecture"
   ],
-  "license": "ISC",
-  "author": "Matt Zeilinger",
+  "license": "MIT",
+  "author": "Matt Zeilinger (Mattsmind)",
   "type": "commonjs",
   "main": "server.js",
   "scripts": {
