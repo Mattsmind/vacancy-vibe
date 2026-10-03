@@ -10,6 +10,8 @@ This project is developed as part of the **Mattsmind** portfolio ecosystem and d
 
 **Current Release:** `v2.2.0`
 
+**See the Demo:** [VacancyVibe Demo](https://vacancyvibe.mrmattsmind.com)
+
 ---
 
 # ✨ Current Features
