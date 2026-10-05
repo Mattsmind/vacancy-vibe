@@ -5,6 +5,7 @@ const motels = require('../controllers/motels');
 const validateForm = require('../middleware/validateForm');
 const requireAuth = require('../middleware/requireAuth');
 const isAuthor = require('../middleware/isAuthor');
+const upload = require('../middleware/cloudinary')
 
 const Motel = require('../models/motel');
 const { motelSchema } = require('../models/motelValidation');
@@ -12,7 +13,7 @@ const { objectIdSchema } = require('../models/idValidation');
 
 router.route('/')
     .get(motels.index)
-    .post(validateForm(motelSchema), requireAuth, motels.createMotel);
+    .post(validateForm(motelSchema), requireAuth, upload.single('image'), motels.createMotel);
 
 router.get('/new', requireAuth, motels.renderNewForm);
 

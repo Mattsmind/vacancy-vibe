@@ -4,7 +4,8 @@
         
         <form 
             action="/motels" 
-            method="post" 
+            method="post"
+            enctype="multipart/form-data" 
             class="needs-validation" 
             novalidate>
             
@@ -38,13 +39,21 @@
             </div>
             <div class="mb-3 has-validation">
                 <label for="image" class="form-label">Image URL</label>
-                <input 
+                <input
+                    type="file"
+                    id="image"
+                    class="form-control"
+                    name="image"
+                    accept="image/*"
+                    required>
+
+                <!-- <input 
                     type="url" 
                     id="image"
                     class="form-control" 
                     name="motel[image]"  
                     placeholder="http://wheremyimageis.com/thisimageismine.jpg" 
-                    required>
+                    required> -->
 
                 <div class="invalid-feedback">
                     Valid image URL is required (inlcuding http:// or https://).

@@ -17,9 +17,10 @@ module.exports.renderNewForm = (req, res) => {
 
 module.exports.createMotel = async (req, res, next) => {
     const motel = req.body.motel;
+
     const newMotel = new Motel({
         title: motel.title,
-        image: motel.image,
+        image: req.file.path,
         price: motel.price,
         description: motel.description,
         location: motel.location,
