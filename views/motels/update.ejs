@@ -5,7 +5,8 @@
         <form 
             action="<%= `/motels/${motel._id}?_method=PUT` %>" 
             method="post" 
-            class="needs-validation" 
+            class="needs-validation"
+            enctype="multipart/form-data" 
             novalidate>
 
             <div class="mb-3 has-validation">
@@ -37,17 +38,17 @@
                 </div>
             </div>
             <div class="mb-3">
-                <label for="image" class="form-label">Image URL</label>
+                <label for="images" class="form-label">Add Images</label>
                 <input 
-                    type="url" 
+                    type="file" 
                     class="form-control" 
-                    name="motel[image]" 
-                    id="image" 
-                    value="<%= motel.image %>"
-                    required>
+                    name="images" 
+                    id="images" 
+                    accept="image/*"
+                    multiple>
 
                 <div class="invalid-feedback">
-                    Valid image URL is required (inlcuding http:// or https://).
+                    Please select valid image files.
                 </div>
             </div>
             <div class="mb-3">

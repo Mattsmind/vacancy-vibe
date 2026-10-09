@@ -20,7 +20,10 @@ module.exports.createMotel = async (req, res, next) => {
 
     const newMotel = new Motel({
         title: motel.title,
-        image: req.file.path,
+        images: req.files.map(file => ({
+            url: file.path,
+            filename: file.filename             
+        })),
         price: motel.price,
         description: motel.description,
         location: motel.location,

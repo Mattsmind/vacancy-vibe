@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Review = require('./review');
+const { required } = require('joi');
 const Schema = mongoose.Schema;
 
 const motelSchema = new Schema({
@@ -8,12 +9,18 @@ const motelSchema = new Schema({
         minlength: [4, 'Title must be at least 4 characters!'],
         required: true
     },
-    image: {
-        type: String,
-        default: () => `https://picsum.photos/400?random=${Math.random()}`,
-        match: [/^https?:\/\/.+/, 'Please enter a valid HTTP or HTTPS URL'],
-        required: true
-    },
+    images: [
+        {
+            url: {
+                type: String,
+                required: true
+            },
+            filename: {
+                type: String,
+                required: true
+            }
+        }
+    ],
     price: {
         type: Number,
         min: [0.01, 'Price must be greater than $0.00!'], 

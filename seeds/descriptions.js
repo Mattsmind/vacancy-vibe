@@ -1,23 +1,5 @@
 module.exports = {
-    // 20 High-stability, curated retro roadside motel images
-    motelImages: [
-        'https://images.unsplash.com/photo-1776142519459-026e785a8c8e?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1607037571595-c60a4f4833a2?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1778566692471-4ff85172c1e1?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1566126727069-6df012224264?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1761440567736-1bef26a5afff?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1776798989475-c4d51a8aa6a5?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1767325404030-7337109b20a4?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1766999630149-b2ec9c83e16e?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1776725049833-b66b933657dc?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1764023874383-55097178b61e?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1768881104631-015f27c55194?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1770743351450-e0a07a67362a?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1768348254661-c20eb5709f4d?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1777415025504-b799eede8073?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1760907428462-7410092c1852?auto=format&fit=crop&w=1200&q=80',
-    ],
-    
+
     atmospheres: [
         // Original 4 items
         'A classic mid-century roadside stop featuring a buzzing neon sign, free morning coffee, and a somewhat functional ice machine. Perfect for crashing after a twelve-hour drive down the interstate.',

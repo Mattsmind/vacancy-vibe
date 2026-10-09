@@ -38,25 +38,18 @@
                 </div>
             </div>
             <div class="mb-3 has-validation">
-                <label for="image" class="form-label">Image URL</label>
+                <label for="images" class="form-label">Add Images</label>
                 <input
                     type="file"
-                    id="image"
+                    id="images"
                     class="form-control"
-                    name="image"
+                    name="images"
                     accept="image/*"
+                    multiple
                     required>
 
-                <!-- <input 
-                    type="url" 
-                    id="image"
-                    class="form-control" 
-                    name="motel[image]"  
-                    placeholder="http://wheremyimageis.com/thisimageismine.jpg" 
-                    required> -->
-
                 <div class="invalid-feedback">
-                    Valid image URL is required (inlcuding http:// or https://).
+                    Please select at least one image for the motel.
                 </div>
             </div>
             <div class="mb-3">
