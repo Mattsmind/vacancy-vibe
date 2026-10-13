@@ -8,9 +8,78 @@
         </div>
     </div>    
     <div class="row">
+        
         <div class="col-lg-4 col-12">
-            <img src="<%= motel.images[0].url %>" alt="<%= motel.title %>" class="img-fluid rounded">
+
+            <% const vibePic = motel.images.find(image => image.filename === motel.vibePic) || motel.images[0]; %>
+
+            <div class="position-relative motel-main-image">
+                <img 
+                    id="mainImage"
+                    data-motel-id="<%= motel._id %>"  
+                    data-image-url="<%= vibePic.url %>"
+                    data-filename="<%= vibePic.filename %>" 
+                    data-vibe-pic="<%= motel.vibePic %>"  
+                    src="<%= vibePic.url %>" 
+                    alt="<%= motel.title %>" 
+                    class="img-fluid rounded">
+
+                <% if (currentUser && motel.author.equals(currentUser._id)) { %>
+                    <!-- Vibe Pic star control -->
+                    <button
+                        id="vibePicStar"
+                        type="button" 
+                        class="btn position-absolute top-0 start-0 mt-1 ms-2 vibe-pic-star"
+                    ></button> 
+                    
+                    <!-- Delete Pic control -->
+                    <button
+                        type="button"
+                        class="btn position-absolute top-0 end-0 m-2 delete-pic-btn"
+                        data-motel-id="<%= motel._id %>"
+                        title="Delete this photo"
+                    > 
+                        ×
+                    </button>
+                <% } %>
+            </div>
+            
+
+            <!-- THUMBNAIL GALLERY -->
+            <div class="position-relative">
+                <!-- LEFT ARROW -->
+                <button 
+                    class="btn gallery-arrow position-absolute top-50 start-0 translate-middle-y fw-bold fs-4"
+                    onclick="document.getElementById('thumbnailStrip').scrollBy({left: -200, behavior: 'smooth'})">❮</button>
+
+                <!-- THUMBNAIL STRIP -->
+                <div id="thumbnailStrip" class="d-flex flex-nowrap overflow-x-auto">
+                    <% for (let image of motel.images) { %>
+                    <img 
+                        src="<%= image.url.replace('/upload/', '/upload/w_160,h_120,c_fill,q_auto,f_auto/') %>" 
+                        alt="<%= motel.title %>" 
+                        class="rounded object-fit-cover flex-shrink-0 me-2 my-2"
+                        style="width: 80px; height: 60px;"
+                        onclick="
+                            const mainImage = document.getElementById('mainImage');
+                            mainImage.src = '<%= image.url %>';
+                            mainImage.dataset.imageUrl = '<%= image.url %>';
+                            mainImage.dataset.filename = '<%= image.filename %>';
+                            window.updateVibePicStar();
+                        ">
+                    <% } %>
+                </div>
+                
+                <!-- RIGHT ARROW -->
+                <button 
+                    class="btn gallery-arrow position-absolute top-50 end-0 translate-middle-y fw-bold fs-4"
+                    onclick="document.getElementById('thumbnailStrip').scrollBy({left: 200, behavior: 'smooth'})">❯</button>
+
+            </div>             
+
         </div>
+        
+        <!-- DESCRIPTION -->
         <div class="col-lg-8 col-12 d-flex flex-column">
             <div class="mb-5">
                 <p class="lead"><%= motel.description %></p>
@@ -30,7 +99,8 @@
 
         </div>
     </div>
-    <div class="row mt-5 pt-4 border-top g-4">
+
+    <div class="row mt-3 pt-4 border-top g-4">
     
         <div class="col-lg-8 col-12">
             <h3 class="h4 mb-4 fw-bold">Guest Reviews</h3>
@@ -119,5 +189,6 @@
     </div>
 
     </div>
-    <% block('scripts').append('<script script src="/js/formValidation.js"></script>') %>
+    <% block('scripts').append('<script src="/js/formValidation.js"></script>') %>
+    <% block('scripts').append('<script src="/js/vibePic.js"></script>') %>
     

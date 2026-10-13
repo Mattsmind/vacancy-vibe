@@ -37,4 +37,7 @@ router.route('/:id')
 
 router.get('/:id/edit', validateForm(objectIdSchema, 'params'), requireAuth, isAuthor(Motel), motels.renderEditForm);
 
+router.put('/:id/vibe-pic', validateForm(objectIdSchema, 'params'), requireAuth, isAuthor(Motel), motels.updateVibePic);
+router.delete('/:id/images', validateForm(objectIdSchema, 'params'), requireAuth, isAuthor(Motel), motels.deleteMotelImage);
+
 module.exports = router;

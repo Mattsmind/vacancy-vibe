@@ -1,5 +1,6 @@
 const Motel = require('../models/motel');
 const AppError = require('../utils/AppError');
+const cloudinary = require('../utils/cloudinary');
 
 module.exports.index = async (req, res, next) => {
     const motels = await Motel.find({});
@@ -24,6 +25,7 @@ module.exports.createMotel = async (req, res, next) => {
             url: file.path,
             filename: file.filename             
         })),
+        vibePic: req.files[0].filename,
         price: motel.price,
         description: motel.description,
         location: motel.location,
@@ -57,33 +59,105 @@ module.exports.showMotel = async (req, res, next) => {
 
 module.exports.renderEditForm = async (req, res, next) => {
     const { id } = req.params;
-    const updateCamp = await Motel.findById(id);
+    const updatedMotel = await Motel.findById(id);
 
-    if (!updateCamp) {
+    if (!updatedMotel) {
         return next(new AppError('The motel you want to update, could not be found.', 404, '/motels'));
     }
 
-    res.render('motels/update', { pageTitle: 'Edit & Update', motel: updateCamp });
+    res.render('motels/update', { pageTitle: 'Edit & Update', motel: updatedMotel });
+};
+
+module.exports.updateVibePic = async (req, res, next) => {
+    const { id } = req.params;
+    const { filename } = req.body;
+
+    const motel = await Motel.findById(id);
+
+    if (!motel) {
+        return next(new AppError('The motel could not be found.', 404, '/motels'));
+    }
+
+    motel.vibePic = filename;
+    await motel.save();
+
+    res.json({ success: true, vibePic: motel.vibePic });
 };
 
 module.exports.updateMotel = async (req, res, next) => {
     const { id } = req.params;
     const motel = req.body.motel;
-    const updatedCamp = await Motel.findByIdAndUpdate(id, motel, { runValidators: true });
+    const updatedMotel = await Motel.findByIdAndUpdate(id);
 
-    if (!updatedCamp) {
-        return next(new AppError('Could not find the camp to update!', 404, '/motels'));
+    if (!updatedMotel) {
+        return next(new AppError('Could not find the motel to update!', 404, '/motels'));
     }
+
+    Object.assign(updatedMotel, motel);
+
+    if (req.files && req.files.length > 0) {
+        updatedMotel.images.push(
+            ...req.files.map(file => ({
+                url: file.path,
+                filename: file.filename
+            }))
+        );
+    }
+
+    await updatedMotel.save();
 
     req.flash('success', 'Successfully updated the motel!');
     res.redirect(`/motels/${id}`);
 };
 
+module.exports.deleteMotelImage = async (req, res, next) => {
+    const { id } = req.params;
+    const { filename } = req.body;
+
+    const motel = await Motel.findById(id);
+
+    if (!motel) {
+        return next(new AppError('The motel could not be found.', 404, '/motels'));
+    }
+
+    const imageIndex = motel.images.findIndex(image => image.filename === filename);
+
+    if (imageIndex === -1) {
+        return next(new AppError('That image could not be found.', 404, `/motels/${id}`));
+    }
+
+    if (motel.images.length === 1) {
+        return next(new AppError('Cannot delete the only image of the motel.', 400, `/motels/${id}`));
+    }
+
+    const image = motel.images[imageIndex];
+
+    await cloudinary.uploader.destroy(image.filename);
+
+    const wasVibePic = motel.vibePic === image.filename;
+
+    motel.images.splice(imageIndex, 1);
+
+    if (wasVibePic) {
+        motel.vibePic = motel.images[0].filename;
+    }
+
+    await motel.save();
+
+    res.json({
+        success: true,
+        deletedFilename: image.filename,
+        vibePic: motel.vibePic,
+        images: motel.images
+    });
+
+};
+
 module.exports.deleteMotel = async (req, res, next) => {
     const { id } = req.params;
-    const deleteCamp = await Motel.findByIdAndDelete(id)
+    const deletedMotel = await Motel.findByIdAndDelete(id)
 
-    if (!deleteCamp) {
+    if (!deletedMotel) {
         return next(new AppError('The motel could not be found.', 404, '/motels'));
     }
     

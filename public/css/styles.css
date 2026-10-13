@@ -5,6 +5,99 @@
   overflow: hidden;
 }
 
+/* Hide the Thumbnail Gallery Scrollbar */
+#thumbnailStrip {
+  scrollbar-width: none;
+}
+
+#thumbnailStrip::-webkit-scrollbar {
+  display: none;
+}
+
+/* Thumbnail Gallery Navigation Buttons */
+.gallery-arrow {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+  aspect-ratio: 1 / 1;
+  line-height: 1.5;
+
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: rgba(88, 200, 200, 0.7);
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.position-relative:hover .gallery-arrow {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.gallery-arrow:hover {
+  color: rgba(222, 222, 222, 1);
+}
+
+/* Thumbnail Gallery Management Controls */
+.vibe-pic-star {
+  font-size: 2rem;
+  font-weight: 900;
+  line-height: 1;
+  padding: 0.25rem;
+  color: white;
+  -webkit-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+  border: none;
+}
+
+.delete-pic-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: backgroud-color 0.2s ease;
+}
+
+.delete-pic-btn:hover {
+  background-color: rgba(220, 55, 70, 0.9)
+}
+
+.motel-main-image .vibe-pic-star,
+.motel-main-image .delete-pic-btn {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.motel-main-image:hover .vibe-pic-star,
+.motel-main-image:hover .delete-pic-btn {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (hover: none) {
+  .motel-main-image .vibe-pic-star,
+  .motel-main-image .delete-pic-btn {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
 /* FLASH MESSAGES */
 .flash-container {
   position: fixed;

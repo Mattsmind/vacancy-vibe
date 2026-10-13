@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Review = require('./review');
-const { required } = require('joi');
+//const { required } = require('joi');
 const Schema = mongoose.Schema;
 
 const motelSchema = new Schema({
@@ -21,6 +21,9 @@ const motelSchema = new Schema({
             }
         }
     ],
+    vibePic: {
+        type: String,
+    },
     price: {
         type: Number,
         min: [0.01, 'Price must be greater than $0.00!'], 
