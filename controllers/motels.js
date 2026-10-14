@@ -1,4 +1,6 @@
 const Motel = require('../models/motel');
+const Review = require('../models/review');
+
 const AppError = require('../utils/AppError');
 const cloudinary = require('../utils/cloudinary');
 
@@ -155,12 +157,23 @@ module.exports.deleteMotelImage = async (req, res, next) => {
 
 module.exports.deleteMotel = async (req, res, next) => {
     const { id } = req.params;
-    const deletedMotel = await Motel.findByIdAndDelete(id)
 
-    if (!deletedMotel) {
+    const motel = await Motel.findById(id);
+
+    if (!motel) {
         return next(new AppError('The motel could not be found.', 404, '/motels'));
     }
     
+    await Promise.all(
+        motel.images.map(image => cloudinary.uploader.destroy(image.filename))
+    );
+
+    await Review.deleteMany({
+        _id: { $in: motel.reviews }
+    });
+
+    await Motel.findByIdAndDelete(id);
+
     req.flash('success', 'Motel deleted successfully!');
     res.redirect('/motels');
 };
