@@ -152,8 +152,8 @@
                 <div class="mb-3">
                     <label class="form-label fw-bold" for="body">Review</label>
                     <div class="has-validation">
-                        <textarea class="form-control" name="review[body]" id="body" rows="5" placeholder="Tell us about your stay..." required></textarea>
-                        <div class="invalid-feedback">Please provide some review text.</div>
+                        <textarea class="form-control" name="review[body]" id="body" rows="5" minlength="4"placeholder="Tell us about your stay..." required></textarea>
+                        <div class="invalid-feedback">A review must be at least 4 characters long.</div>
                     </div>
                 </div>
                 
