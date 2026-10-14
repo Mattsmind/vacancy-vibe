@@ -2,6 +2,7 @@ const User = require('../models/user');
 
 module.exports = async (req, res, next) => {
     res.locals.currentUser = null;
+    res.locals.currentUrl = req.originalUrl;
 
     if (!req.session.userId) {
         return next();

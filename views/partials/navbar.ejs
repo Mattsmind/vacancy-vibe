@@ -27,8 +27,13 @@
                         <button type="submit" class="btn btn-outline-danger btn-sm">Logout</button>
                     </form>
                 <% } else { %>
-                    <a href="/auth/login" class="btn btn-link text-light text-decoration-none btn-sm">Login</a>
-                    <a href="/auth/register" class="btn btn-primary btn-sm">Sign Up</a>
+                    <a href="/auth/login?returnTo=<%= encodeURIComponent(currentUrl) %>" class="btn btn-link text-light text-decoration-none btn-sm">
+                        Login
+                    </a>
+
+                    <a href="/auth/register?returnTo=<%= encodeURIComponent(currentUrl) %>" class="btn btn-primary btn-sm">
+                        Sign Up
+                    </a>
                 <% } %>
                 </div>
             </div>
